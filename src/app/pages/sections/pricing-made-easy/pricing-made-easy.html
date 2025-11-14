@@ -1,0 +1,197 @@
+<!-- pricing-made-easy.component.html -->
+<section class="section-pricing flat-spacing">
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="pricing-header text-center mb-6">
+      <h1 class="text-display-2 mb-3">Pricing Made Easy</h1>
+      <p class="text-white-64">Choose the perfect plan for your digital journey</p>
+    </div>
+
+    <!-- Billing Toggle -->
+    <div class="billing-toggle-container" [class.visible]="showBillingOptions" [class.hidden]="!showBillingOptions">
+      <div class="billing-toggle">
+        <label class="billing-option">
+          <input type="radio" name="billing" value="monthly" [(ngModel)]="selectedBilling" (change)="onBillingChange()">
+          <span class="billing-label">Monthly</span>
+        </label>
+        
+        <label class="billing-option">
+          <input type="radio" name="billing" value="yearly" [(ngModel)]="selectedBilling" (change)="onBillingChange()">
+          <span class="billing-label">Yearly</span>
+          <span class="discount-badge">Save 20%</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="pricing-cards-container">
+      
+      <!-- Basic Plan -->
+      <div class="pricing-card" 
+           (mouseenter)="onCardHover(0)"
+           (mouseleave)="onCardLeave(0)"
+           [class.hovered]="hoveredCard === 0">
+        
+        <div class="card-header">
+          <div class="price-section">
+            <h3 class="price">
+              <span class="price-amount">{{ getPrice('basic') }}</span>
+              <span class="price-period" [class.fade-in]="showBillingOptions">/{{ selectedBilling === 'monthly' ? 'mo' : 'yr' }}</span>
+            </h3>
+            <span class="price-note">(Note 1b)</span>
+          </div>
+          <div class="plan-description">
+            <p>Printed for early stages based on standard usage to launch the first offline presence.</p>
+          </div>
+        </div>
+
+        <div class="card-divider"></div>
+
+        <div class="features-section">
+          <h4 class="features-title">Options Included:</h4>
+          <ul class="features-list">
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Custom website design
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Responsive layouts
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Basic SEO setup
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Tool integration
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Ongoing support
+            </li>
+          </ul>
+        </div>
+
+        <div class="card-action">
+          <button class="tf-btn tf-btn--outline" (click)="selectPlan('basic')">
+            GET STARTED
+          </button>
+        </div>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="pricing-card pricing-card--pro"
+           (mouseenter)="onCardHover(1)"
+           (mouseleave)="onCardLeave(1)"
+           [class.hovered]="hoveredCard === 1">
+        
+        <div class="card-badge">POPULAR</div>
+        
+        <div class="card-header">
+          <div class="price-section">
+            <h3 class="price">
+              <span class="price-amount">{{ getPrice('pro') }}</span>
+              <span class="price-period" [class.fade-in]="showBillingOptions">/{{ selectedBilling === 'monthly' ? 'mo' : 'yr' }}</span>
+            </h3>
+            <span class="price-note">(Note 2b)</span>
+          </div>
+          <div class="plan-description">
+            <p>Used for growing brands that require added features and enhanced creative flexibility.</p>
+          </div>
+        </div>
+
+        <div class="card-divider"></div>
+
+        <div class="features-section">
+          <h4 class="features-title">Options Included:</h4>
+          <ul class="features-list">
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Advanced web design
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Interactive elements
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Full SEO services
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              E-commerce setup
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Monthly records
+            </li>
+          </ul>
+        </div>
+
+        <div class="card-action">
+          <button class="tf-btn" (click)="selectPlan('pro')">
+            GET STARTED
+          </button>
+        </div>
+      </div>
+
+      <!-- Enterprise Plan -->
+      <div class="pricing-card pricing-card--enterprise"
+           (mouseenter)="onCardHover(2)"
+           (mouseleave)="onCardLeave(2)"
+           [class.hovered]="hoveredCard === 2">
+        
+        <div class="card-header">
+          <div class="price-section">
+            <h3 class="price">
+              <span class="price-amount">{{ getPrice('enterprise') }}</span>
+              <span class="price-period" [class.fade-in]="showBillingOptions">/{{ selectedBilling === 'monthly' ? 'mo' : 'yr' }}</span>
+            </h3>
+            <span class="price-note">(Note 3a)</span>
+          </div>
+          <div class="plan-description">
+            <p>Delivered for established companies seeking ownership/innovation digital solutions.</p>
+          </div>
+        </div>
+
+        <div class="card-divider"></div>
+
+        <div class="features-section">
+          <h4 class="features-title">Options Included:</h4>
+          <ul class="features-list">
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Complete branding
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Premium details
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Enterprise systems
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Content management
+            </li>
+            <li class="feature-item">
+              <span class="check-icon">//</span>
+              Priority support
+            </li>
+          </ul>
+        </div>
+
+        <div class="card-action">
+          <button class="tf-btn tf-btn--outline" (click)="selectPlan('enterprise')">
+            GET STARTED
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

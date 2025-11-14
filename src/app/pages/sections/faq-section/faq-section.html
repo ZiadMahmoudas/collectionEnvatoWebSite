@@ -1,0 +1,57 @@
+<!-- faq-section.component.html -->
+<section class="section-faq flat-spacing">
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="faq-header text-center mb-6">
+      <h2 class="text-display-2 mb-3">Frequently Asked Questions</h2>
+      <p class="text-white-64">Find answers to common questions about our process and services</p>
+    </div>
+
+    <!-- FAQ Items -->
+    <div class="faq-container">
+      <div class="faq-item" 
+           *ngFor="let item of faqItems; let i = index"
+           [class.active]="item.isOpen"
+           [class.animate-in]="true">
+        
+        <div class="faq-question" (click)="toggleFAQ(i)">
+          <div class="question-content">
+            <span class="question-number">{{ item.number }}</span>
+            <h3 class="question-text">{{ item.question }}</h3>
+          </div>
+          <div class="question-toggle">
+            <span class="toggle-icon">{{ item.isOpen ? '−' : '+' }}</span>
+          </div>
+        </div>
+
+        <div class="faq-answer" [class.show]="item.isOpen">
+          <div class="answer-content">
+            <p>{{ item.answer }}</p>
+            
+            <!-- Additional content for specific questions -->
+            <div *ngIf="item.number === '01'" class="additional-info">
+              <ul class="timeline-list">
+                <li><strong>Discovery & Planning:</strong> 1-2 weeks</li>
+                <li><strong>Design Phase:</strong> 2-3 weeks</li>
+                <li><strong>Development:</strong> 3-4 weeks</li>
+                <li><strong>Testing & Launch:</strong> 1 week</li>
+              </ul>
+            </div>
+
+            <div *ngIf="item.number === '04'" class="additional-info">
+              <ul class="payment-steps">
+                <li>50% deposit to start the project</li>
+                <li>25% after design approval</li>
+                <li>25% upon project completion</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+</section>

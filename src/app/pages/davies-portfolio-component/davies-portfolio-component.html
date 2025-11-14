@@ -1,0 +1,177 @@
+
+
+<!-- davies-portfolio.component.html -->
+<div class="min-h-screen bg-black text-white overflow-hidden">
+  <!-- Header -->
+<!-- Header -->
+<header class="header-area">
+  <div class="area-left">
+    <h5 class="fw-semibold">Ziad®</h5>
+  </div>
+  
+  <!-- Animated Menu Strip (بدل header-middle) -->
+  <div class="animated-menu-strip" 
+       (mouseenter)="onMenuHover(true)" 
+       [class.hovered]="isMenuHovered">
+    <div class="menu-marquee">
+      <div class="menu-track" [class.animate]="isMenuHovered">
+        <span *ngFor="let item of menuItems" class="menu-item">{{ item }}</span>
+      </div>
+      <div class="menu-track" [class.animate]="isMenuHovered">
+        <span *ngFor="let item of menuItems" class="menu-item">{{ item }}</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="tf-btn" (click)="downloadCV()">DOWNLOAD</button>
+</header>
+  <!-- Hero Section -->
+  <section class="section-demo flat-spacing">
+    <div class="container">
+      <div class="s-header d-block text-center">
+        <div class="overflow-hidden">
+          <p class="mini-title text-body-1 letter-space--1 fw-semibold fade-up">INTRODUCING</p>
+        </div>
+        <h1 class="fw-bold text-display-1">
+          <div class="overflow-hidden"><span class="fade-up d-block">Ziad</span></div>
+          <div class="overflow-hidden"><span class="fade-up d-block">PORTFOLIO</span></div>
+        </h1>
+      </div>
+
+      <!-- Portfolio Cards Grid -->
+      <div class="tf-grid-layout md-col-2">
+        <div *ngFor="let version of versions" 
+             class="demo-wrapper fade-up"
+             (mouseenter)="setHoveredCard(version.id)"
+             (mouseleave)="setHoveredCard(null)">
+          
+          <a [href]="version.link" target="_blank" class="demo-box w-100">
+            
+            <!-- Card Container -->
+            <div class="card-container" 
+                 [class.hovered]="hoveredCard === version.id"
+                 [style.box-shadow]="hoveredCard === version.id ? '0 25px 50px -12px ' + version.glowColor : 'none'">
+              
+              <!-- Mini Browser Preview -->
+              <div class="img-box">
+                <!-- Background Image with Scroll Effect -->
+                <div class="image-scroll-container" 
+                     [class.scrolling]="hoveredCard === version.id">
+                  <div class="image-scroll-content"
+                       [style.background-image]="'url(' + version.preview + ')'">
+                  </div>
+                </div>
+
+                <!-- Browser UI Overlay -->
+                <div class="browser-header">
+                  <div class="browser-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                  </div>
+                  
+                  <div class="browser-logo">D</div>
+                  
+                  <div class="browser-nav">
+                    <span>HOME</span>
+                    <span>SERVICES</span>
+                    <span>ABOUT</span>
+                    <span>CONTACT</span>
+                  </div>
+                </div>
+
+                <!-- Preview Content Overlay -->
+                <div class="preview-overlay">
+                  <div *ngIf="version.id === 1" class="version-1-preview">
+                    <!-- Green Glow Effect -->
+                    <div class="glow-effect green-glow"></div>
+                    
+                    <!-- Large DAVIES Text -->
+                    <div class="large-text">
+                      <h2>Ziad</h2>
+                    </div>
+
+                    <!-- Side Info -->
+                    <div class="side-info">
+                      <div *ngFor="let feature of version.features" class="feature-item">{{ feature }}</div>
+                    </div>
+
+                    <!-- Top Right Badge -->
+                    <div class="top-right-badge">
+                      <div class="badge-text">{{ version.badge }}</div>
+                      <div class="year">{{ version.year }}</div>
+                    </div>
+
+                    <!-- Bottom Right Description -->
+                    <div class="description">
+                      <p>{{ version.description }}</p>
+                    </div>
+                  </div>
+
+                  <div *ngIf="version.id === 2" class="version-2-preview">
+                    <!-- Logo Circle -->
+                    <div class="logo-circle">
+                      <div class="circle-content">
+                        <div class="years">2010 - PRESENT</div>
+                        <div class="logo-text">Ziad®</div>
+                      </div>
+                    </div>
+
+                    <!-- Experience List -->
+                    <div class="experience-list">
+                      <div *ngFor="let feature of version.features" class="experience-item">{{ feature }}</div>
+                    </div>
+
+                    <!-- Tech Stack -->
+                    <div class="tech-stack">
+                      <h3>{{ version.badge }}</h3>
+                      <div class="tech-items">
+                        <div *ngFor="let tech of version.techStack" class="tech-item">
+                          <div class="tech-circle">
+                            <div class="inner-circle"></div>
+                          </div>
+                          <span class="tech-name">{{ tech }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Hover Overlay -->
+                <div class="hover-overlay" [class.visible]="hoveredCard === version.id"></div>
+              </div>
+
+              <!-- Card Footer -->
+              <div class="content-box">
+                <div class="left">
+                  <h4>{{ version.title }}</h4>
+                  <p>{{ version.subtitle }}</p>
+                </div>
+                <span class="view" [class.visible]="hoveredCard === version.id">View</span>
+              </div>
+
+              <!-- Bottom Line Animation -->
+              <div class="bottom-line" [class.active]="hoveredCard === version.id"></div>
+            </div>
+
+            <!-- Glow Effect Behind Card -->
+            <div class="glow-background" 
+                 [class.visible]="hoveredCard === version.id"
+                 [style.background]="'radial-gradient(circle at center, ' + version.glowColor + ', transparent 70%)'">
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer من الـ HTML الأصلي -->
+  <footer class="footer-area">
+    <a href="#" target="_blank" class="link fw-semibold">
+      <p>©2025 WP River</p>
+    </a>
+    <div class="right">
+      <a href="#" class="link fw-semibold">BUILT IN HTML</a>
+    </div>
+  </footer>
+</div>

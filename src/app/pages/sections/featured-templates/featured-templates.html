@@ -1,0 +1,86 @@
+<!-- featured-templates.component.html -->
+<section class="featured-section">
+  <div class="header">
+    <h1>Featured Templates</h1>
+    <button class="browse-btn">BROWSE ALL</button>
+  </div>
+
+  <div class="slider-container">
+    <div class="slider-track" 
+         [style.transform]="'translateX(' + (-currentIndex * slideWidth) + '%)'">
+      <div *ngFor="let template of templates; let i = index" 
+           class="template-card"
+           (mouseenter)="onHover(template.id)"
+           (mouseleave)="onLeave(template.id)"
+           (mousemove)="onMouseMove($event, template.id)"
+           (touchstart)="onTouchStart($event)"
+           (touchend)="onTouchEnd($event)">
+        <div class="template-image">
+          <img [src]="hoveredId === template.id && template.hoverImage ? template.hoverImage : template.image" 
+               [alt]="template.title"
+               loading="lazy">
+          
+          <!-- Glass Cursor Effect with Arrow -->
+          <div class="glass-cursor" 
+               *ngIf="hoveredId === template.id && !isMobile"
+               [style.left.px]="cursorPosition[template.id]?.x"
+               [style.top.px]="cursorPosition[template.id]?.y">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" class="cursor-arrow">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <!-- Mobile Overlay -->
+          <div class="mobile-overlay" *ngIf="isMobile">
+            <div class="mobile-price">${{ template.price }}</div>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-details">
+            <span class="category">{{ template.category }}</span>
+            <h3 class="title">{{ template.title }}</h3>
+          </div>
+          <span class="price" *ngIf="!isMobile">${{ template.price }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Arrows -->
+    <div class="mobile-nav-arrows" *ngIf="isMobile">
+      <button class="mobile-nav-btn prev" (click)="prev()" [disabled]="currentIndex === 0">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <button class="mobile-nav-btn next" (click)="next()" [disabled]="currentIndex >= maxIndex">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="navigation" [class.mobile]="isMobile">
+    <button class="nav-btn" (click)="prev()" [disabled]="currentIndex === 0" *ngIf="!isMobile">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      PREV
+    </button>
+    
+    <div class="slider-dots">
+      <button *ngFor="let dot of getDots()" 
+              class="dot" 
+              [class.active]="dot === currentIndex"
+              (click)="goToSlide(dot)">
+      </button>
+    </div>
+    
+    <button class="nav-btn" (click)="next()" [disabled]="currentIndex >= maxIndex" *ngIf="!isMobile">
+      NEXT
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </button>
+  </div>
+</section>

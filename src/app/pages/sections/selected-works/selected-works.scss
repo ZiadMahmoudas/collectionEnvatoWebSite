@@ -1,0 +1,251 @@
+// selected-works.component.scss
+.section-portfolio {
+  padding: 100px 0;
+  background: #000;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.portfolio-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  align-items: center;
+}
+
+// Left Section
+.left-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.header-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 60px;
+  
+  .badge-icon {
+    color: #07C42C;
+    font-size: 1.2rem;
+  }
+  
+  .badge-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+}
+
+.title-stack {
+  margin-bottom: 60px;
+  
+  .title-item {
+    margin: 0;
+    line-height: 1;
+    
+    &.faded {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+    
+    &.main {
+      color: #fff;
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #fff 0%, #07C42C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+}
+
+.categories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 60px;
+}
+
+.category-pill {
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: rgba(7, 196, 44, 0.3);
+    color: #fff;
+  }
+  
+  &.active {
+    background: rgba(7, 196, 44, 0.1);
+    border-color: #07C42C;
+    color: #07C42C;
+  }
+}
+
+.controls-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.nav-arrows {
+  display: flex;
+  gap: 20px;
+}
+
+.arrow-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  
+  &:hover {
+    border-color: #07C42C;
+    color: #07C42C;
+    transform: translateY(-2px);
+  }
+  
+  .arrow {
+    font-size: 1rem;
+  }
+}
+
+.year-badge {
+  text-align: right;
+  
+  .year-number {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+  
+  .year-highlight {
+    color: #07C42C;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}
+
+// Right Section
+.right-section {
+  position: relative;
+}
+
+.project-image-wrapper {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #111;
+  
+  .project-image {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(0,0,0,0.3) 0%, transparent 100%);
+  }
+}
+
+.project-indicator {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  
+  .indicator-number {
+    color: #07C42C;
+  }
+  
+  .indicator-total {
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .portfolio-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  
+  .title-stack .title-item.main {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-portfolio {
+    padding: 60px 0;
+  }
+  
+  .portfolio-container {
+    padding: 0 20px;
+    gap: 40px;
+  }
+  
+  .title-stack .title-item.main {
+    font-size: 2.5rem;
+  }
+  
+  .title-stack .title-item.faded {
+    font-size: 2rem;
+  }
+  
+  .project-image-wrapper .project-image {
+    height: 400px;
+  }
+  
+  .controls-bottom {
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-start;
+  }
+}

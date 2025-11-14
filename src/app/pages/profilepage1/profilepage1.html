@@ -1,0 +1,354 @@
+<div class="min-h-screen bg-black text-white overflow-hidden">
+  <!-- Canvas for Cursor Trail -->
+  <!-- <canvas id="trail" class="cursor-trail"></canvas> -->
+
+  <!-- Scroll Top Button -->
+  <button id="goTop" [class.show]="showScrollTop" (click)="scrollToTop()">
+    <span class="border-progress"></span>
+    <span class="ic-wrap">
+      <span class="icon">↑</span>
+    </span>
+  </button>
+
+  <!-- Header -->
+  <header class="tf-header" [class.scrolled]="isScrolled">
+    <div class="header-inner">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-6 col-md-1">
+            <a href="/" class="logo-site">
+<svg width="34" height="41" viewBox="0 0 34 41" fill="none" class="icon-z-logo"
+     (mouseenter)="onLogoHover()" 
+     (mouseleave)="onLogoLeave()"
+     [class.hover]="isLogoHovered">
+  <!-- الحرف Z بس -->
+  <path class="z-letter" d="M8 8 L26 8 L8 33 L26 33" stroke="#07C42C" stroke-width="3" 
+        stroke-linecap="round" stroke-linejoin="round" />
+</svg>
+
+            </a>
+          </div>
+          
+          <!-- Animated Menu Strip -->
+          <div class="col-7 d-none d-md-block">
+            <div class="animated-menu-strip" 
+                 (mouseenter)="onMenuHover(true)" 
+                 (mouseleave)="onMenuHover(false)"
+                 [class.hovered]="isMenuHovered">
+              <div class="menu-marquee">
+                <div class="menu-track" [class.animate]="isMenuHovered">
+                  <span *ngFor="let item of menuItems" class="menu-item">
+                    <a [href]="'#' + item.section" 
+                       class="menu-link"
+                       (click)="scrollToSection(item.section, $event)">
+                      <span class="item-number">{{ item.number }}</span>
+                      {{ item.name }}
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-3 col-md-2 d-none d-sm-block">
+            <div class="header-contact">
+              <a href="mailto:ziadbobo78@gmail.com" class="link text-caption">ziadbobo78@GMAIL.COM</a>
+              <p class="text-caption">
+                CUP <span class="clock">{{ currentTime }}</span>
+              </p>
+            </div>
+          </div>
+          
+          <div class="col-6 col-sm-3 col-md-2 d-flex justify-content-end align-items-start">
+            <button type="button" class="btn-mobile-menu text-caption link" (click)="toggleMobileMenu()">
+              <i class="icon-menu">≡</i>
+              MENU
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="offcanvas-menu" [class.active]="mobileMenuOpen">
+    <div class="offcanvas-content">
+      <div class="container h-100">
+        <div class="offcanvas-content_wrapin">
+          <div class="canvas_head">
+            <a href="/" class="logo-site">
+    <svg width="34" height="41" viewBox="0 0 34 41" fill="none" class="icon-z-logo"
+     (mouseenter)="onLogoHover()" 
+     (mouseleave)="onLogoLeave()"
+     [class.hover]="isLogoHovered">
+  <!-- الحرف Z بس -->
+  <path class="z-letter" d="M8 8 L26 8 L8 33 L26 33" stroke="#07C42C" stroke-width="3" 
+        stroke-linecap="round" stroke-linejoin="round" />
+</svg>
+            </a>
+            <button class="btn-mobile-menu text-caption link" (click)="toggleMobileMenu()">
+              <i class="icon-close">×</i>
+              CLOSE
+            </button>
+          </div>
+          
+          <div class="canvas_center">
+            <ul class="nav-ul-mb">
+              <li *ngFor="let item of mobileMenuItems" 
+                  class="mobile-menu-item"
+                  (mouseenter)="setMenuHover(item.section)"
+                  (mouseleave)="clearMenuHover()">
+                
+                <div class="mobile-menu-content" (click)="scrollToSection(item.section, $event)">
+                  <!-- Main Text -->
+                  <a [href]="'#' + item.section" class="menu-main-text">
+                    <span class="item-number">{{ item.number }}</span>
+                    <span class="item-name">{{ item.name }}</span>
+                  </a>
+                  
+                  <!-- Continuous Scrolling Text -->
+                  <div class="continuous-scroll-text" [class.active]="hoveredMenuItem === item.section">
+                    <div class="scroll-track">
+                      <span class="scroll-item" *ngFor="let _ of [1,2,3,4,5,6,7,8,9,10]">
+                        <span class="text-primary">//</span> {{ item.scrollText }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Hover Line -->
+                <div class="menu-hover-line"></div>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="canvas_foot">
+            <div class="left">
+              <a href="mailto:ziadbobo78@gmail.com" class="link text-caption">ziadbobo78@GMAIL.COM</a>
+              <p class="text-caption">
+                CUP <span class="clock">{{ currentTime }}</span>
+              </p>
+            </div>
+            <div class="right">
+              <a *ngFor="let social of ['Twitter (X)', 'Dribbble', 'LinkedIn']" 
+                 href="#" 
+                 class="tf-link-icon text-caption link">
+                <i class="icon">↗</i>
+                {{ social | uppercase }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="section-hero-v1">
+    <div class="overlay"></div>
+    <div class="bg-video">
+      <div class="video-placeholder"></div>
+      <div class="video-overlay"></div>
+      <div class="video-overlay-2"></div>
+    </div>
+    
+    <div class="content-wrap">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="col-left">
+              <ul class="tf-list vertical text-caption fw-medium">
+                <li *ngFor="let role of ['WEB-DESIGNER', 'BLOGGER', 'TREND ANALYST']">
+                  <a href="#" class="link effectFade fadeUp">{{ role }}</a>
+                </li>
+              </ul>
+              <div class="davies-large effectFade fadeRotateX">
+                Ziad<span class="text-primary">_</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="col-right">
+              <div class="top text-caption fw-medium d-flex justify-content-between align-items-center effectFade">
+                <p class="title text-has-dot">
+                  <span class="br-dot"></span>
+                  AVAILABLE FOR WORK
+                </p>
+                <span>© 2025</span>
+              </div>
+              
+              <div class="bot">
+                <p class="desc text-white-64 effectFade fadeRight">
+                  I craft bold brands and modern websites with purpose. Each detail balances design and usability for impact. My work adapts as your vision grows.
+                </p>
+                <div class="effectFade fadeRight">
+                  <a href="#contactScroll" 
+                     class="tf-btn" 
+                     (click)="scrollToSection('contactScroll', $event)">
+                    START A PROJECT
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Sections -->
+  <main id="wrapper">
+    <!-- Works Section -->
+  <app-selected-works/>
+
+    <!-- Skills Section -->
+    <div id="skillsScroll">
+      <app-skills-marquee></app-skills-marquee>
+    </div>
+<app-featured-templates></app-featured-templates>
+    <!-- Services Section -->
+<!-- Services Section -->
+<app-services-scroll></app-services-scroll>
+
+
+<!-- Testimonials Section -->
+<section id="testimonialsScroll" class="section-testimonials flat-spacing">
+  <div class="container">
+    <div class="testimonials-header">
+      <h2 class="text-display-2">Testimonials</h2>
+      <p class="text-white-64">What clients say about my work</p>
+    </div>
+
+    <div class="testimonials-container" #testimonialsContainer>
+      <div class="testimonials-track" 
+           [style.transform]="'translateX(' + (currentTestimonial * -100) + '%)'">
+        
+        <div *ngFor="let testimonial of testimonials; let i = index" 
+             class="testimonial-card"
+             [class.active]="i === currentTestimonial">
+          
+          <!-- Background Image with Parallax -->
+          <div class="testimonial-bg" 
+               [style.background-image]="'url(' + testimonial.image + ')'"
+               [style.transform]="'translateY(' + parallaxOffset + 'px)'">
+          </div>
+          
+          <div class="testimonial-overlay"></div>
+          
+          <div class="testimonial-content">
+            <div class="quote-mark">"</div>
+            <p class="testimonial-text">{{ testimonial.text }}</p>
+            
+            <div class="client-info">
+              <div class="client-avatar">
+                <img [src]="testimonial.avatar" [alt]="testimonial.name">
+              </div>
+              <div class="client-details">
+                <h4 class="client-name">{{ testimonial.name }}</h4>
+                <p class="client-position">{{ testimonial.position }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="testimonials-nav">
+        <button class="nav-btn prev" (click)="prevTestimonial()" aria-label="Previous testimonial">
+          <i class="icon">←</i>
+        </button>
+        
+        <div class="nav-dots">
+          <button *ngFor="let testimonial of testimonials; let i = index" 
+                  class="dot" 
+                  [class.active]="i === currentTestimonial"
+                  (click)="goToTestimonial(i)"
+                  [attr.aria-label]="'Go to testimonial ' + (i + 1)">
+          </button>
+        </div>
+        
+        <button class="nav-btn next" (click)="nextTestimonial()" aria-label="Next testimonial">
+          <i class="icon">→</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<app-pricing-made-easy></app-pricing-made-easy>
+
+    <!-- Contact Section -->
+<app-contact-section></app-contact-section>
+  </main>
+<app-faq-section></app-faq-section>
+  <!-- Footer -->
+  <footer class="tf-footer">
+    <div class="container">
+      <div class="br-line"></div>
+    </div>
+    
+    <div class="footer-inner">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <p class="title text-has-dot text-caption fw-medium mb-md-0">
+              <span class="br-dot"></span>
+              WORKING GLOBALLY
+            </p>
+          </div>
+          
+          <div class="col-6 col-sm-2 col-md-1">
+            <p class="footer-heading text-caption fw-medium text-white-64">SITEMAP</p>
+          </div>
+          
+          <div class="col-6 col-sm-4 col-md-3">
+            <ul class="footer-menu-list mb-sm-0">
+              <li *ngFor="let item of mobileMenuItems">
+                <a [href]="'#' + item.section" 
+                   class="link letter-space--2 h5" 
+                   (click)="scrollToSection(item.section, $event)">
+                  {{ item.name }}
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="col-6 col-sm-2 col-md-1">
+            <p class="footer-heading text-caption fw-medium text-white-64">SOCIALS</p>
+          </div>
+          
+          <div class="col-6 col-sm-4 col-md-3">
+            <ul class="footer-menu-list mb-0">
+              <li *ngFor="let social of ['Twitter (X)', 'Dribbble', 'LinkedIn']">
+                <a href="#" class="link letter-space--2 h5">{{ social }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="img-agency">
+          <div class="agency-placeholder">
+            <h3 class="text-display-2">Ziad</h3>
+          </div>
+        </div>
+        
+        <div class="bottom">
+          <p class="text-nocopy text-caption fw-medium letter-space--1">
+            © Ziad'S PERSONAL PORTFOLIO
+          </p>
+          <a href="#" 
+             class="action-go-top tf-link-icon link text-caption fw-medium letter-space--1" 
+             (click)="scrollToTop($event)">
+            BACK TO TOP
+            <i class="icon">→</i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

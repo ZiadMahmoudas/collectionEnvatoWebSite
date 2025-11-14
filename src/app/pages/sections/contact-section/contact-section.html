@@ -1,0 +1,149 @@
+<!-- contact-section.component.html -->
+<section class="section-contact flat-spacing">
+  <div class="container">
+    <div class="contact-wrapper">
+      
+      <!-- Left Column - Form -->
+      <div class="contact-form-container">
+        <h2 class="contact-title">Let's Start Your Project</h2>
+        
+        <form class="contact-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+          
+          <!-- Name & Email Row -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label floating-label">
+                <input type="text" 
+                       class="form-input" 
+                       name="name"
+                       [(ngModel)]="formData.name"
+                       (focus)="onInputFocus($event)"
+                       (blur)="onInputBlur($event)"
+                       required>
+                <span class="floating-text">Name *</span>
+                <span class="input-line"></span>
+              </label>
+              <div class="error-message" *ngIf="contactForm.submitted && !formData.name">
+                Please fill out this field.
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label floating-label">
+                <input type="email" 
+                       class="form-input" 
+                       name="email"
+                       [(ngModel)]="formData.email"
+                       (focus)="onInputFocus($event)"
+                       (blur)="onInputBlur($event)"
+                       required>
+                <span class="floating-text">Email *</span>
+                <span class="input-line"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Service Interest - Custom Select -->
+          <div class="form-group">
+            <label class="form-label floating-label">
+              
+              <!-- Custom Select -->
+              <div class="custom-select" 
+                   [class.open]="isSelectOpen"
+                   [class.has-value]="selectedService"
+                   (click)="toggleSelect()"
+                   (blur)="onSelectBlur()">
+                
+                <div class="select-trigger">
+                  <span class="selected-value">
+                    {{ selectedService || '-- Select an option --' }}
+                  </span>
+                  <span class="select-arrow">{{ isSelectOpen ? '▲' : '▼' }}</span>
+                </div>
+                
+                <div class="select-options" *ngIf="isSelectOpen">
+                  <div class="option-item" 
+                       *ngFor="let service of services"
+                       (click)="selectService(service)"
+                       [class.selected]="service === selectedService">
+                    <span class="option-text">{{ service }}</span>
+                    <span class="option-check">✓</span>
+                  </div>
+                </div>
+                
+              </div>
+              <span class="floating-text">You are interested in</span>
+              <span class="input-line"></span>
+            </label>
+          </div>
+
+          <!-- Budget -->
+          <div class="form-group">
+            <label class="form-label floating-label">
+              <input type="text" 
+                     class="form-input" 
+                     name="budget"
+                     [(ngModel)]="formData.budget"
+                     (focus)="onInputFocus($event)"
+                     (blur)="onInputBlur($event)"
+                     placeholder=" ">
+              <span class="floating-text">Budget in USD</span>
+              <span class="input-line"></span>
+            </label>
+          </div>
+
+          <!-- Project Details -->
+          <div class="form-group">
+            <label class="form-label floating-label textarea-label">
+              <textarea class="form-textarea" 
+                        name="message"
+                        [(ngModel)]="formData.message"
+                        (focus)="onInputFocus($event)"
+                        (blur)="onInputBlur($event)"
+                        rows="5"
+                        placeholder=" "></textarea>
+              <span class="floating-text">Project details</span>
+              <span class="input-line"></span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="submit-btn" [class.loading]="isSubmitting">
+            <span class="btn-text">
+              {{ isSubmitting ? 'SENDING...' : 'SUBMIT MESSAGE' }}
+            </span>
+            <span class="btn-loader" *ngIf="isSubmitting">
+              <div class="loader-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </span>
+          </button>
+
+        </form>
+      </div>
+
+      <!-- Right Column - Contact Info -->
+      <div class="contact-info">
+        <div class="contact-hello">
+          <h3 class="hello-title">say hello</h3>
+          <a href="mailto:ziadbobo78@gmail.com" class="contact-email">ziadbobo78@gmail.com</a>
+        </div>
+        
+        <!-- Additional Info -->
+        <div class="contact-meta">
+          <div class="meta-item">
+            <span class="meta-label">Response Time</span>
+            <span class="meta-value">Within 24 hours</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Availability</span>
+            <span class="meta-value">Worldwide</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

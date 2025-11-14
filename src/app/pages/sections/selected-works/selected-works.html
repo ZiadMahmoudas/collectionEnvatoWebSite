@@ -1,0 +1,73 @@
+<!-- selected-works.component.html -->
+<section class="section-portfolio">
+  <div class="portfolio-container">
+    
+    <!-- Left Side - Title & Navigation -->
+    <div class="left-section">
+      <!-- Header Badge -->
+      <div class="header-badge" [@fadeUp]>
+        <span class="badge-icon">↖</span>
+        <span class="badge-text">SELECTED WORKS</span>
+      </div>
+
+      <!-- Main Titles -->
+      <div class="title-stack">
+        
+        <h1 class="title-item main" 
+            @titleAnimation>
+          {{ currentProject.title }}
+        </h1>
+        
+      </div>
+
+      <!-- Categories -->
+      <div class="categories-list">
+        <div class="category-pill" 
+             *ngFor="let category of currentCategories; let i = index"
+             [class.active]="category.active"
+             (click)="selectCategory(category.id)"
+             [@categoryAnimation]="{ value: currentIndex, params: { delay: getCategoryDelay(i) } }">
+          {{ category.name }}
+        </div>
+      </div>
+
+      <!-- Navigation Controls -->
+      <div class="controls-bottom" [@fadeUp]>
+        <div class="nav-arrows">
+          <button class="arrow-btn" (click)="prevProject()">
+            <span class="arrow">←</span>
+            <span>PREV</span>
+          </button>
+          <button class="arrow-btn" (click)="nextProject()">
+            <span>NEXT</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+
+        <!-- Year Badge -->
+        <div class="year-badge">
+          <span class="year-number">20</span>
+          <span class="year-highlight">25</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side - Project Image -->
+    <div class="right-section">
+      <div class="project-image-wrapper">
+        <img [src]="currentProject.image" 
+             [alt]="currentProject.title" 
+             class="project-image"
+             [@projectSlide]="currentIndex">
+        <div class="image-overlay"></div>
+        
+        <!-- Project Indicator -->
+        <div class="project-indicator">
+          <span class="indicator-number">0{{ currentIndex + 1 }}</span>
+          <span class="indicator-total">/0{{ projects.length }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
